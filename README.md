@@ -32,7 +32,6 @@
 #### 127.0.0.1 pigx-redis
 #### 127.0.0.1 pigx-mysql
 
-
 ## 启动顺序
 #### 1. PigxNacosApplication   
 #### 2. PigxAdminApplication  
