@@ -39,4 +39,4 @@
 #### 4. PigxPayPlatformApplication 
 
 ## 联系方式
-#### 邮箱： 
+#### 邮箱： tjamdm01@gmail.com
