@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+  ~
+  ~      Copyright (c) 2018-2025, lengleng All rights reserved.
+  ~
+  ~  Redistribution and use in source and binary forms, with or without
+  ~  modification, are permitted provided that the following conditions are met:
+  ~
+  ~ Redistributions of source code must retain the above copyright notice,
+  ~  this list of conditions and the following disclaimer.
+  ~  Redistributions in binary form must reproduce the above copyright
+  ~  notice, this list of conditions and the following disclaimer in the
+  ~  documentation and/or other materials provided with the distribution.
+  ~  Neither the name of the pig4cloud.com developer nor the names of its
+  ~  contributors may be used to endorse or promote products derived from
+  ~  this software without specific prior written permission.
+  ~  Author: lengleng (wangiegie@gmail.com)
+  ~
+  --><project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.pig4cloud</groupId>
+	<artifactId>pigx</artifactId>
+	<version>3.10.0</version>
+	<name>${project.artifactId}</name>
+	<packaging>pom</packaging>
+	<organization>
+		<name>pig4cloud</name>
+		<url>https://www.pig4cloud.com</url>
+	</organization>
+
+	<properties>
+		<spring-boot.version>2.3.3.RELEASE</spring-boot.version>
+		<spring-cloud.version>Hoxton.SR8</spring-cloud.version>
+		<spring-cloud-alibaba.version>2.2.2.RELEASE</spring-cloud-alibaba.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
+		<maven.compiler.version>3.8.1</maven.compiler.version>
+		<spring.checkstyle.version>0.0.23</spring.checkstyle.version>
+		<git.commit.version>2.2.5</git.commit.version>
+		<spring-boot-admin.version>2.3.0</spring-boot-admin.version>
+		<hutool.version>5.4.2</hutool.version>
+		<captcha.version>1.2.4</captcha.version>
+		<swagger.fox.version>2.9.2</swagger.fox.version>
+		<knife4j.version>2.0.4</knife4j.version>
+		<velocity.version>1.7</velocity.version>
+		<lcn.version>4.1.0</lcn.version>
+		<jasypt.version>2.1.1</jasypt.version>
+		<ttl.version>2.11.4</ttl.version>
+		<aws.version>1.11.543</aws.version>
+		<xxl.job.version>2.2.0</xxl.job.version>
+		<activiti.version>5.22.0</activiti.version>
+		<docker.registry>172.17.0.111</docker.registry>
+		<docker.host>http://172.17.0.111:2375</docker.host>
+		<docker.namespace>library</docker.namespace>
+		<docker.username>admin</docker.username>
+		<docker.password>Harbor12345</docker.password>
+		<docker.plugin.version>0.33.0</docker.plugin.version>
+		<!--  ??????docker???? -->
+		<docker.skip>true</docker.skip>
+	</properties>
+
+	<dependencies>
+		<!--?????????????-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-configuration-processor</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<!--jasypt????????????-->
+		<dependency>
+			<groupId>com.github.ulisesbocchio</groupId>
+			<artifactId>jasypt-spring-boot-starter</artifactId>
+			<version>${jasypt.version}</version>
+		</dependency>
+		<!--???-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+		<!--???????-->
+		<dependency>
+			<groupId>de.codecentric</groupId>
+			<artifactId>spring-boot-admin-starter-client</artifactId>
+			<version>${spring-boot-admin.version}</version>
+		</dependency>
+		<!--Lombok-->
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<!--????????-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+	<modules>
+		<module>pigx-register</module>
+		<module>pigx-gateway</module>
+		<module>pigx-upms</module>
+		<module>pigx-visual</module>
+  	</modules>
+
+	<dependencyManagement>
+		<dependencies>
+			<!--pigx ???????????-->
+			<dependency>
+				<groupId>com.pig4cloud</groupId>
+				<artifactId>pigx-common-bom</artifactId>
+				<version>${project.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+			<!--spring boot ???????????-->
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-dependencies</artifactId>
+				<version>${spring-boot.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+			<!--spring cloud ???????????-->
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-dependencies</artifactId>
+				<version>${spring-cloud.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+			<!--spring cloud alibaba-->
+			<dependency>
+				<groupId>com.alibaba.cloud</groupId>
+				<artifactId>spring-cloud-alibaba-dependencies</artifactId>
+				<version>${spring-cloud-alibaba.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+			<!--web ???-->
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-web</artifactId>
+				<version>${spring-boot.version}</version>
+				<exclusions>
+					<!--???tomcat????-->
+					<exclusion>
+						<artifactId>spring-boot-starter-tomcat</artifactId>
+						<groupId>org.springframework.boot</groupId>
+					</exclusion>
+				</exclusions>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<build>
+		<finalName>${project.name}</finalName>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
+		<pluginManagement>
+			<plugins>
+				<!--spring boot ?????-->
+				<plugin>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-maven-plugin</artifactId>
+					<version>${spring-boot.version}</version>
+					<executions>
+						<execution>
+							<goals>
+								<goal>repackage</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+				<!--maven  docker ?????? -->
+				<plugin>
+					<groupId>io.fabric8</groupId>
+					<artifactId>docker-maven-plugin</artifactId>
+					<version>${docker.plugin.version}</version>
+					<configuration>
+						<dockerHost>${docker.host}</dockerHost>
+						<registry>${docker.registry}</registry>
+						<authConfig>
+							<push>
+								<username>${docker.username}</username>
+								<password>${docker.password}</password>
+							</push>
+						</authConfig>
+						<images>
+							<image>
+								<name>${docker.registry}/${docker.namespace}/${project.name}:${project.version}</name>
+								<build>
+									<dockerFile>${project.basedir}/Dockerfile</dockerFile>
+								</build>
+							</image>
+						</images>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+		<plugins>
+			<!--?????????????????spring ????-->
+			<plugin>
+				<groupId>io.spring.javaformat</groupId>
+				<artifactId>spring-javaformat-maven-plugin</artifactId>
+				<version>${spring.checkstyle.version}</version>
+			</plugin>
+			<!--????????????????-->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>${maven.compiler.version}</version>
+				<configuration>
+					<target>${maven.compiler.target}</target>
+					<source>${maven.compiler.source}</source>
+					<encoding>UTF-8</encoding>
+					<skip>true</skip>
+				</configuration>
+			</plugin>
+			<!--??????????? git commit ??????-->
+			<plugin>
+				<groupId>pl.project13.maven</groupId>
+				<artifactId>git-commit-id-plugin</artifactId>
+				<version>${git.commit.version}</version>
+			</plugin>
+		</plugins>
+	</build>
+
+	<pluginRepositories>
+		<pluginRepository>
+			<id>aliyun-plugin</id>
+			<url>https://maven.aliyun.com/repository/public</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</pluginRepository>
+	</pluginRepositories>
+
+	<repositories>
+		<!--?????????-->
+		<repository>
+			<id>aliyun</id>
+			<name>aliyun</name>
+			<url>http://maven.aliyun.com/nexus/content/groups/public</url>
+		</repository>
+	</repositories>
+
+	<profiles>
+		<profile>
+			<id>dev</id>
+			<properties>
+				<!-- ??????????????????????????????? -->
+				<profiles.active>dev</profiles.active>
+			</properties>
+			<activation>
+				<!-- ?????? -->
+				<activeByDefault>true</activeByDefault>
+			</activation>
+		</profile>
+		<profile>
+			<id>test</id>
+			<properties>
+				<profiles.active>test</profiles.active>
+			</properties>
+		</profile>
+		<profile>
+			<id>prod</id>
+			<properties>
+				<profiles.active>prod</profiles.active>
+			</properties>
+		</profile>
+	</profiles>
+
+</project>
